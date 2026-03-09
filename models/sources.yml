@@ -1,0 +1,52 @@
+version: 2
+
+sources:
+  - name: bronze
+    database: PT4
+    schema: BRONZE
+    tables:
+      - name: raw_customers
+        description: "Clientes raw cargados manualmente en Bronze (replace entre batches)."
+        columns:
+          - name: customer_id
+            tests: [not_null]
+          - name: updated_at
+            tests: [not_null]
+          - name: loaded_at
+            tests: [not_null]
+
+      - name: raw_products
+        description: "Productos raw cargados manualmente en Bronze (replace entre batches)."
+        columns:
+          - name: product_id
+            tests: [not_null]
+          - name: updated_at
+            tests: [not_null]
+          - name: loaded_at
+            tests: [not_null]
+
+      - name: raw_orders
+        description: "Pedidos raw (append-only entre batches)."
+        columns:
+          - name: order_id
+            tests: [not_null]
+          - name: loaded_at
+            tests: [not_null]
+
+      - name: raw_order_lines
+        description: "Líneas de pedido raw (append-only)."
+        columns:
+          - name: order_id
+            tests: [not_null]
+          - name: line_number
+            tests: [not_null]
+          - name: loaded_at
+            tests: [not_null]
+
+      - name: raw_order_events
+        description: "Eventos del pedido raw (append-only)."
+        columns:
+          - name: event_id
+            tests: [not_null]
+          - name: loaded_at
+            tests: [not_null]
